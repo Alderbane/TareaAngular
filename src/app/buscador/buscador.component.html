@@ -1,0 +1,45 @@
+<style>
+  .h {
+    background-color: red;
+  }
+
+</style>
+
+<input type="text" name="" id="" [value]="search" [(ngModel)]="search" (keydown.enter)="buscar()"><button (mouseup)="buscar()">Buscar</button>
+<br>
+<small *ngIf="0<search.length">Estas buscando: {{search}}</small>
+
+
+<ul>
+  <li>
+    <input type="checkbox" name="" id="" [checked]="exists" [(ngModel)]="exists"> Solo en existencia
+  </li>
+  <li>
+    <input type="checkbox" name="" id="" [checked]="ordered" [(ngModel)]="ordered" (click)="order()"> Ordenar por precio (Mayor a menor)
+  </li>
+  <li>
+    <input type="checkbox" name="" id="" [checked]="mayor3" [(ngModel)]="mayor3"> Existencias mayor a 3
+  </li>
+
+</ul>
+
+<div *ngFor="let item of res" >
+  <div [class.h]="((mayor3 && item.existencia>3))" *ngIf="(!exists || (exists && item.existencia > 0))" >
+    <img src="https://i.picsum.photos/id/{{item.uid}}/100/100.jpg" alt="">
+    <div>
+      <p>Nombre: {{item.nombre}}</p>
+      <p >Marca: {{item.marca}}</p>
+      <p >Descripcion: {{item.descripcion}}</p>
+      <p >Precio: ${{item.precio}}</p>
+      <p >Existencias: {{item.existencia}}</p>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="alert alert-danger"  *ngIf="res.length==0">
+    <strong>No se encuentra el producto</strong>
+</div>
+
+
